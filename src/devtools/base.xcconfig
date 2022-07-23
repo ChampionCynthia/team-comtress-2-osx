@@ -27,13 +27,13 @@ GCC_VERSION = com.apple.compilers.llvm.clang.1_0
 CC = $(SOURCE_ROOT)/devtools/bin/osx32/xcode_ccache_wrapper
 LDPLUSPLUS = $(DT_TOOLCHAIN_DIR)/usr/bin/clang++
 //CLANG_WARN_CXX0X_EXTENSIONS = NO
-CLANG_CXX_LANGUAGE_STANDARD = c++11
+CLANG_CXX_LANGUAGE_STANDARD = c++17
 
 // include <memory.h> gets confused, 'cause ivp has one, and the system has one, and only one
 // gets into the header map, so sacrifice speed for corectness.
 USE_HEADERMAP = NO
 
-SDKROOT = macosx10.10
+SDKROOT = macosx10.13
 MACOSX_DEPLOYMENT_TARGET = 10.7
 GCC_FAST_MATH = YES
 CLANG_LINK_OBJC_RUNTIME = false
