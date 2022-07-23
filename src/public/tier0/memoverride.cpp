@@ -406,7 +406,7 @@ extern "C"
 //-----------------------------------------------------------------------------
 #ifndef NO_MEMOVERRIDE_NEW_DELETE
 #ifdef OSX
-void *__cdecl operator new( size_t nSize ) throw (std::bad_alloc)
+void *__cdecl operator new( size_t nSize ) noexcept( false )
 #else
 void *__cdecl operator new( size_t nSize )
 #endif
@@ -438,7 +438,7 @@ void operator delete(void*pMem, std::size_t) throw()
 }
 
 #ifdef OSX
-void *__cdecl operator new[]( size_t nSize ) throw (std::bad_alloc)
+void *__cdecl operator new[]( size_t nSize ) noexcept( false )
 #else
 void *__cdecl operator new[]( size_t nSize )
 #endif
