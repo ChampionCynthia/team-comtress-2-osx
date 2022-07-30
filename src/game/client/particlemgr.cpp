@@ -1089,8 +1089,8 @@ bool CParticleMgr::Init(unsigned long count, IMaterialSystem *pMaterials)
 #ifdef TF_CLIENT_DLL
 	if ( IsX360() )
 	{
-		//m_pThreadPool[0] = CreateThreadPool();
-		m_pThreadPool[1] = CreateThreadPool();
+		//m_pThreadPool[0] = CreateNewThreadPool();
+		m_pThreadPool[1] = CreateNewThreadPool();
 
 		ThreadPoolStartParams_t startParams;
 		startParams.nThreads = 3;

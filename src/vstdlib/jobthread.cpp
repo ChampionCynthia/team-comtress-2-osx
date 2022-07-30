@@ -344,7 +344,7 @@ private:
 
 //-----------------------------------------------------------------------------
 
-JOB_INTERFACE IThreadPool *CreateThreadPool()
+JOB_INTERFACE IThreadPool *CreateNewThreadPool()
 {
 	return new CThreadPool;
 }

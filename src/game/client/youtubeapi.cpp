@@ -625,7 +625,7 @@ bool CYouTubeSystem::Init()
 
 void CYouTubeSystem::InitThreadPool()
 {
-	m_pThreadPool = CreateThreadPool();
+	m_pThreadPool = CreateNewThreadPool();
 	m_pThreadPool->Start(ThreadPoolStartParams_t(false, 4), "YouTubeSystem");
 }
 

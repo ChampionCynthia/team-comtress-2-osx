@@ -3555,7 +3555,7 @@ IThreadPool *CMaterialSystem::CreateMatQueueThreadPool()
         //  that only the threadpool threads should execute these jobs.
 		startParams.bExecOnThreadPoolThreadsOnly = true;
 
-		m_pMatQueueThreadPool = CreateThreadPool();
+		m_pMatQueueThreadPool = CreateNewThreadPool();
 		m_pMatQueueThreadPool->Start( startParams, "MatQueue" );
 	}
 

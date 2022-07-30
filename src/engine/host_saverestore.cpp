@@ -3281,7 +3281,7 @@ void CSaveRestore::Init( void )
 			threadPoolStartParams.bUseAffinityTable = true;
 		}
 
-		g_pSaveThread = CreateThreadPool();
+		g_pSaveThread = CreateNewThreadPool();
 		g_pSaveThread->Start( threadPoolStartParams, "SaveJob" );
 	}
 

@@ -4954,7 +4954,7 @@ void CMeshMgr::Init()
 		// Only call render device on a separate thread
 		startParams.bExecOnThreadPoolThreadsOnly = true;
 
-		m_pRenderDeviceThreadPool = CreateThreadPool();
+		m_pRenderDeviceThreadPool = CreateNewThreadPool();
 		m_pRenderDeviceThreadPool->Start(startParams, "RenderDeviceThread");
 	}
 #endif
