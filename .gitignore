@@ -249,6 +249,7 @@ generated_proto*/
 !src/lib/common/mxtoolkitwin32.lib
 !src/lib/common/osx32/bzip2.a
 !src/lib/common/osx32/libcrypto.a
+!src/lib/common/osx32/libcryptopp.a
 !src/lib/common/osx32/libcurl.dylib
 !src/lib/common/osx32/libjpeg.a
 !src/lib/common/osx32/libogg.a
