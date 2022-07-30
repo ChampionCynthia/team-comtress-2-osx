@@ -47,6 +47,9 @@ public:
 
 	// returns the height of the font, in pixels
 	virtual int GetHeight();
+	
+	// returns requested height of font.
+	virtual int GetHeightRequested();
 
 	// returns the ascent of the font, in pixels (ascent=units above the base line)
 	virtual int GetAscent();
@@ -65,6 +68,7 @@ public:
 	
 	// gets the name of this font
 	const char *GetName() { return m_szName.String(); }
+	const char *GetFamilyName() { return NULL; }
 
 	// gets the weight of the font
 	virtual int GetWeight() { return m_iWeight; }
