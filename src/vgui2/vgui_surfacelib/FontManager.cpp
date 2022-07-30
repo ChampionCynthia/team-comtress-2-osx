@@ -750,7 +750,7 @@ void CFontManager::GetKernedCharWidth( vgui::HFont font, wchar_t ch, wchar_t chB
 	if ( m_FontAmalgams[font].GetFontForChar( chAfter ) != pFont )
 		chAfter = 0;
 	
-#if defined(LINUX)
+#if defined(POSIX)
 	pFont->GetKernedCharWidth( ch, chBefore, chAfter, wide, flabcA, flabcC );
 #else
 	pFont->GetKernedCharWidth( ch, chBefore, chAfter, wide, flabcA );
