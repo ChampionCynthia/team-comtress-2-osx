@@ -14,9 +14,9 @@
 #include <vgui/ISurface.h>
 #include <tier0/mem.h>
 #include <utlbuffer.h>
-#include <vstdlib/vstrtools.h>
 
 #include "filesystem.h"
+#include "strtools.h"
 #include "vgui_surfacelib/osxfont.h"
 #include "FontEffects.h"
 
@@ -99,7 +99,7 @@ bool COSXFont::Create(const char *windowsFontName, int tall, int weight, int blu
 	m_iTall = tall;
 	m_iWeight = weight;
 	m_iFlags = flags;
-	m_bAntiAliased = flags & FONTFLAG_ANTIALIAS;
+	m_bAntiAliased = flags & vgui::ISurface::FONTFLAG_ANTIALIAS;
 #if 0
 // the font used in portal2 looks ok (better, in fact) anti-aliased when small, 
 	if ( tall < 20 )
@@ -108,13 +108,13 @@ bool COSXFont::Create(const char *windowsFontName, int tall, int weight, int blu
 	}
 #endif
 	
-	m_bUnderlined = flags & FONTFLAG_UNDERLINE;
-	m_iDropShadowOffset = (flags & FONTFLAG_DROPSHADOW) ? 1 : 0;
-	m_iOutlineSize = (flags & FONTFLAG_OUTLINE) ? 1 : 0;
+	m_bUnderlined = flags & vgui::ISurface::FONTFLAG_UNDERLINE;
+	m_iDropShadowOffset = (flags & vgui::ISurface::FONTFLAG_DROPSHADOW) ? 1 : 0;
+	m_iOutlineSize = (flags & vgui::ISurface::FONTFLAG_OUTLINE) ? 1 : 0;
 	m_iBlur = blur;
 	m_iScanLines = scanlines;
-	m_bRotary = flags & FONTFLAG_ROTARY;
-	m_bAdditive = flags & FONTFLAG_ADDITIVE;
+	m_bRotary = flags & vgui::ISurface::FONTFLAG_ROTARY;
+	m_bAdditive = flags & vgui::ISurface::FONTFLAG_ADDITIVE;
 
 	char sCustomPath[1024];
 	Q_snprintf( sCustomPath, sizeof( sCustomPath ), "./platform/vgui/fonts/%s.ttf", windowsFontName );
@@ -142,7 +142,7 @@ bool COSXFont::Create(const char *windowsFontName, int tall, int weight, int blu
 		float fCTWeight = ( (float)( weight - 400 ) / 500.0f );
 		pKeys[0] = kCTFontWeightTrait;
 		pValues[0] = CFNumberCreate( NULL, kCFNumberFloatType, &fCTWeight );
-		float fCTSlant = ( flags & FONTFLAG_ITALIC ) != 0 ? 1.0f : 0.0f;
+		float fCTSlant = ( flags & vgui::ISurface::FONTFLAG_ITALIC ) != 0 ? 1.0f : 0.0f;
 		pKeys[1] = kCTFontSlantTrait;
 		pValues[1] = CFNumberCreate( NULL, kCFNumberFloatType, &fCTSlant );
 
@@ -451,6 +451,15 @@ int COSXFont::GetHeight()
 {
 	assert(IsValid());
 	return m_iHeight;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: returns the requested height of the font
+//-----------------------------------------------------------------------------
+int COSXFont::GetHeightRequested()
+{
+	Assert( IsValid() );
+	return m_iTall;
 }
 
 //-----------------------------------------------------------------------------
