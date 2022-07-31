@@ -46,8 +46,8 @@
                         #define DID_THE_OPERATOR_NEW
 			// posix doesn't have a new of this form, so we impl our own
 			#ifdef OSX
-				void* operator new( size_t nSize, int blah, const char *pFileName, int nLine ) throw (std::bad_alloc);
-				void* operator new[]( size_t nSize, int blah, const char *pFileName, int nLine ) throw (std::bad_alloc);
+				void* operator new( size_t nSize, int blah, const char *pFileName, int nLine ) noexcept(false);
+				void* operator new[]( size_t nSize, int blah, const char *pFileName, int nLine ) noexcept(false);
 			#else
 				void* operator new( size_t nSize, int blah, const char *pFileName, int nLine );
 				void* operator new[]( size_t nSize, int blah, const char *pFileName, int nLine );
