@@ -15,14 +15,20 @@ CORES=$(sysctl -n hw.physicalcpu)
 export CC="$(pwd)/devtools/bin/osx32/ccache clang"
 # shellcheck disable=SC2155
 export CXX="$(pwd)/devtools/bin/osx32/ccache clang++"
+chmod u+x "$(pwd)/devtools/bin/osx32/ccache"
+export I386_SDK="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk"
+export I386_INC="${I386_SDK}/usr/include:"
+export I386_LIB="${I386_SDK}/usr/lib:"
+
 
 if [[ ! -f "thirdparty/protobuf-2.6.1/src/.libs/libprotobuf.a" ]]; then
 	pushd .
 	cd "thirdparty/protobuf-2.6.1/"
-	./configure "CFLAGS=-m32 -mmacosx-version-min=10.7 -Wno-reserved-user-defined-literal -D_GLIBCXX_USE_CXX11_ABI=0" \
-		"CXXFLAGS=-m32 -mmacosx-version-min=10.7 -Wno-reserved-user-defined-literal -D_GLIBCXX_USE_CXX11_ABI=0" \
-		"LDFLAGS=-m32" \
-		"SDKROOT=\"\""
+	chmod u+x ./configure
+	chmod u+x ./install-sh
+	./configure "CFLAGS=-m32 -mmacosx-version-min=10.9 -Wno-reserved-user-defined-literal -D_GLIBCXX_USE_CXX11_ABI=0" \
+		"CXXFLAGS=-m32 --stdlib=libc++ -mmacosx-version-min=10.9 -Wno-reserved-user-defined-literal -D_GLIBCXX_USE_CXX11_ABI=0" \
+		"LDFLAGS=-m32"
 	make "-j$CORES"
 	popd
 fi
