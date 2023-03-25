@@ -36,6 +36,7 @@ pythonenv*/
 # OSX/Linux build products
 *.mak
 *.mak.vpc_crc
+*_osx32*
 *.xcodeproj/
 obj*/
 !src/devtools/*.mak
