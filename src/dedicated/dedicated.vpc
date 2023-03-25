@@ -31,13 +31,6 @@ $Project "Dedicated"
 	$Folder	"Source Files"
 	{
 		$File	"dedicated.rc"
-		$File	"sys_linux.cpp"
-		{
-			$Configuration
-			{
-				$ExcludedFromBuild					"Yes"
-			}
-		}
 		$File	"filesystem.cpp"
 		$File	"$SRCDIR\public\filesystem_init.cpp"
 		$File	"$SRCDIR\common\netapi.cpp"
@@ -142,6 +135,7 @@ $Project "Dedicated"
 		$Lib	tier2
 		$Lib	tier3
 		$Lib	vgui_controls [$WIN32]
+		$LibExternal "$SRCDIR/thirdparty/libedit-3.1/bin/osx32/libc++/libedit" [$OSXALL]
 		$LibExternal "$SRCDIR/thirdparty/libedit-3.1/src/.libs/libedit" [$LINUXALL]
 		$ImpLibExternal steam_api
 		$ImpLib SDL2 [$SDL]
