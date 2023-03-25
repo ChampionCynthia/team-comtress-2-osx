@@ -27,7 +27,7 @@ GCC_VERSION = com.apple.compilers.llvm.clang.1_0
 CC = $(SOURCE_ROOT)/devtools/bin/osx32/xcode_ccache_wrapper
 LDPLUSPLUS = $(DT_TOOLCHAIN_DIR)/usr/bin/clang++
 //CLANG_WARN_CXX0X_EXTENSIONS = NO
-CLANG_CXX_LANGUAGE_STANDARD = c++17
+CLANG_CXX_LANGUAGE_STANDARD = c++11
 
 // include <memory.h> gets confused, 'cause ivp has one, and the system has one, and only one
 // gets into the header map, so sacrifice speed for corectness.
