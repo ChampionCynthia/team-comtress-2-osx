@@ -62,6 +62,8 @@ public:
 	// Frees everything
 	void		Clear();
 
+	bool		IsAllocationWithinPool( void *pMem ) const;
+
 	// Error reporting... 
 	static void SetErrorReportFunc( MemoryPoolReportFunc_t func );
 
@@ -122,6 +124,8 @@ public:
 
 	// Frees everything
 	void		Clear() { AUTO_LOCK( m_mutex ); return CUtlMemoryPool::Clear(); }
+
+	bool		IsAllocationWithinPool( void *pMem ) const { return CUtlMemoryPool::IsAllocationWithinPool( pMem ); }
 private:
 	CThreadFastMutex m_mutex; // @TODO: Rework to use tslist (toml 7/6/2007)
 };
