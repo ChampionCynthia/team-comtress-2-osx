@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e  # Stop on error
-cd "$(dirname "$0")/src"
+cd "$(dirname "$0")"
 
 if pwd | grep -q " "; then
         echo "You have cloned the source directory into a path with spaces"
