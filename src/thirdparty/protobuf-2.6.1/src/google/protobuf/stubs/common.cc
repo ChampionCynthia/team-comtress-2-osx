@@ -352,7 +352,11 @@ void InitShutdownFunctions() {
   shutdown_functions_mutex = new Mutex;
 }
 
+#ifdef __APPLE__
+void InitShutdownFunctionsOnce() {
+#else
 inline void InitShutdownFunctionsOnce() {
+#endif
   GoogleOnceInit(&shutdown_functions_init, &InitShutdownFunctions);
 }
 
