@@ -16,32 +16,36 @@ export OSX_TOOLS_BIN="$(pwd)/devtools/bin/osx32"
 export CC="${OSX_TOOLS_BIN}/ccache clang"
 export CXX="${OSX_TOOLS_BIN}/ccache clang++"
 chmod u+x "${OSX_TOOLS_BIN}/ccache" "${OSX_TOOLS_BIN}/protoc" "${OSX_TOOLS_BIN}/xcode_ccache_wrapper"
+export SDKROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk"
 
-#if [[ ! -f "thirdparty/protobuf-2.6.1/bin/osx32/libc++/libprotobuf.a" ]]; then
-#	pushd .
-#	cd "thirdparty/protobuf-2.6.1/"
-#	chmod u+x ./configure
-#	chmod u+x ./install-sh
-#	./configure "CFLAGS=-m32 -mmacosx-version-min=10.9 -Wno-reserved-user-defined-literal -D_GLIBCXX_USE_CXX11_ABI=0" \
-#		"CXXFLAGS=-m32 --stdlib=libc++ -mmacosx-version-min=10.9 -Wno-reserved-user-defined-literal -D_GLIBCXX_USE_CXX11_ABI=0" \
-#		"LDFLAGS=-m32" \
-#		"--prefix=$(pwd)/build_osx32" \
-#		"--bindir=$(pwd)/bin/osx32/libc++" \
-#		"--libdir=$(pwd)/bin/osx32/libc++"
-#	make "-j$CORES"
-#	make install
-#	popd
-#	cp thirdparty/protobuf-2.6.1/bin/osx32/libc++/*.a "lib/public/osx32"
-#fi
+if [[ ! -f "thirdparty/protobuf-2.6.1/bin/osx32/libc++/libprotobuf.a" ]]; then
+	pushd .
+	cd "thirdparty/protobuf-2.6.1/"
+	chmod u+x ./configure
+	chmod u+x ./install-sh
+	# Hack: We need -stdlib=libc++ passed to libtool but LDFLAGS doesn't seem to work here.
+	#       We add the flag to the CXX command-line to fix this.
+	./configure "CXX=${CXX} -stdlib=libc++" \
+	    "CFLAGS=-m32 -mmacosx-version-min=10.7 -isysroot ${SDKROOT}" \
+		"CXXFLAGS=-m32 -D_GLIBCXX_USE_CXX11_ABI=0 -mmacosx-version-min=10.7 -stdlib=libc++ -isysroot ${SDKROOT}" \
+		"LDFLAGS=-m32 -mmacosx-version-min=10.7 -stdlib=libc++" \
+		"--prefix=$(pwd)/build_osx32" \
+		"--bindir=$(pwd)/bin/osx32/libc++" \
+		"--libdir=$(pwd)/bin/osx32/libc++"
+	make "-j$CORES"
+	make install
+	popd
+	cp thirdparty/protobuf-2.6.1/bin/osx32/libc++/*.a "lib/public/osx32"
+fi
 
 if [[ ! -f "thirdparty/libedit-3.1/bin/osx32/libc++/libedit.a" ]]; then
     pushd .
     cd "thirdparty/libedit-3.1/"
 	chmod u+x ./configure
 	chmod u+x ./install-sh
-	./configure "CFLAGS=-m32 -fvisibility-inlines-hidden -mmacosx-version-min=10.9" \
-		"CXXFLAGS=-m32 -fvisibility-inlines-hidden -mmacosx-version-min=10.9 -stdlib=libc++" \
-		"LDFLAGS=-m32" \
+	./configure "CFLAGS=-m32 -mmacosx-version-min=10.7 -isysroot ${SDKROOT} -stdlib=libc++" \
+		"CXXFLAGS=-m32 -D_GLIBCXX_USE_CXX11_ABI=0 -mmacosx-version-min=10.7 -stdlib=libc++ -isysroot ${SDKROOT}" \
+		"LDFLAGS=-m32 -mmacosx-version-min=10.7 -stdlib=libc++" \
 		"--prefix=$(pwd)/build_osx32" \
 		"--bindir=$(pwd)/bin/osx32/libc++" \
 		"--libdir=$(pwd)/bin/osx32/libc++"
