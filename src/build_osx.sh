@@ -18,7 +18,7 @@ export CXX="${OSX_TOOLS_BIN}/ccache clang++"
 chmod u+x "${OSX_TOOLS_BIN}/ccache" "${OSX_TOOLS_BIN}/protoc" "${OSX_TOOLS_BIN}/xcode_ccache_wrapper"
 export SDKROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk"
 
-if [[ ! -f "thirdparty/protobuf-2.6.1/bin/osx32/libc++/libprotobuf.a" ]]; then
+if [[ ! -f "lib/public/osx32/libprotobuf.a" ]]; then
 	pushd .
 	cd "thirdparty/protobuf-2.6.1/"
 	chmod u+x ./configure
@@ -38,7 +38,7 @@ if [[ ! -f "thirdparty/protobuf-2.6.1/bin/osx32/libc++/libprotobuf.a" ]]; then
 	cp thirdparty/protobuf-2.6.1/bin/osx32/libc++/*.a "lib/public/osx32"
 fi
 
-if [[ ! -f "thirdparty/libedit-3.1/bin/osx32/libc++/libedit.a" ]]; then
+if [[ ! -f "lib/public/osx32/libedit.a" ]]; then
     pushd .
     cd "thirdparty/libedit-3.1/"
 	chmod u+x ./configure
