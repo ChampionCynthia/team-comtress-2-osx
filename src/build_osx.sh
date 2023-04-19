@@ -74,7 +74,7 @@ fi
 
 # shellcheck disable=SC2086   # we want arguments to be split
 devtools/bin/vpc_osx /define:WORKSHOP_IMPORT_DISABLE /define:SIXENSE_DISABLE /define:NO_X360_XDK \
-				/define:RAD_TELEMETRY_DISABLED /retail /tf ${VPC_FLAGS} +game /mksln games
+				/define:RAD_TELEMETRY_DISABLED /retail /tf ${VPC_FLAGS} +everything -panel_zoo /mksln everything
 
 #xcodebuild -workspace "$(pwd)/games.xcodeproj/project.xcworkspace" -scheme All -configuration Debug
-xcodebuild -project "$(pwd)/games.xcodeproj" -alltargets -configuration Debug
+xcodebuild -project "$(pwd)/everything.xcodeproj" -alltargets -configuration Debug
