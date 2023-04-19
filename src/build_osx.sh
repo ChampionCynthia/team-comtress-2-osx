@@ -15,8 +15,33 @@ CORES=$(sysctl -n hw.physicalcpu)
 export OSX_TOOLS_BIN="$(pwd)/devtools/bin/osx32"
 export CC="${OSX_TOOLS_BIN}/ccache clang"
 export CXX="${OSX_TOOLS_BIN}/ccache clang++"
-chmod u+x "${OSX_TOOLS_BIN}/ccache" "${OSX_TOOLS_BIN}/protoc" "${OSX_TOOLS_BIN}/xcode_ccache_wrapper"
 export SDKROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk"
+export VALVE_NO_AUTO_P4=1
+export XCODE_CFG="Release"
+
+chmod u+x "${OSX_TOOLS_BIN}/ccache" "${OSX_TOOLS_BIN}/protoc" "${OSX_TOOLS_BIN}/xcode_ccache_wrapper"
+
+while [[ ${1:0:1} == '-' ]]; do
+	case "${1}" in
+		"-d")
+			XCODE_CFG="Debug"
+		;;
+		"-c")
+			shift
+			if [[ $1 =~ ^[1-9][0-9]*$ ]]; then
+				CORES=$1
+			else
+				echo "Not a number: ${1}"
+				exit 1
+			fi
+		;;
+		*)
+			echo "Unknown flag ${1}"
+			exit 1
+		;;
+	esac
+	shift
+done
 
 if [[ ! -f "lib/public/osx32/libprotobuf.a" ]]; then
 	pushd .
@@ -77,4 +102,4 @@ devtools/bin/vpc_osx /define:WORKSHOP_IMPORT_DISABLE /define:SIXENSE_DISABLE /de
 				/define:RAD_TELEMETRY_DISABLED /retail /tf ${VPC_FLAGS} +everything -panel_zoo /mksln everything
 
 #xcodebuild -workspace "$(pwd)/games.xcodeproj/project.xcworkspace" -scheme All -configuration Debug
-xcodebuild -project "$(pwd)/everything.xcodeproj" -alltargets -configuration Debug
+xcodebuild -project "$(pwd)/everything.xcodeproj" -alltargets -parallelizeTargets -jobs ${CORES} -configuration ${XCODE_CFG}
