@@ -352,8 +352,8 @@ ActionResult< CTFBot >	CTFBotScenarioMonitor::Update( CTFBot *me, float interval
 				{
 					m_lostFlagTimer.Invalidate();
 
-					// if we're a Medic an actively healing someone, don't interrupt
-					if ( !me->MedicGetHealTarget() )
+					// if we're a Medic actively healing someone or an Engineer, don't interrupt
+					if ( !me->MedicGetHealTarget() && !me->IsPlayerClass( TF_CLASS_ENGINEER ) )
 					{
 						// we better go get the flag
 						return SuspendFor( new CTFBotFetchFlag( TEMPORARY_FLAG_FETCH ), "Fetching lost flag..." );

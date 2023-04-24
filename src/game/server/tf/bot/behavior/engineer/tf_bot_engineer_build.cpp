@@ -26,7 +26,7 @@ ConVar tf_raid_engineer_infinte_metal( "tf_raid_engineer_infinte_metal", "1", FC
 //---------------------------------------------------------------------------------------------
 Action< CTFBot > *CTFBotEngineerBuild::InitialContainedAction( CTFBot *me )
 {
-	if ( TFGameRules()->IsPVEModeActive() )
+	if ( TFGameRules()->IsPVEModeActive() || TFGameRules()->GetGameType() == TF_GAMETYPE_CTF )
 	{
 		return new CTFBotEngineerMoveToBuild;
 	}
